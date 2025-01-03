@@ -20,7 +20,7 @@ Most configuration is done via environment variables. See the [server properties
 ```hcl
 module "minecraft_server" {
   source                     = "matt-FFFFFF/minecraft-server/azure"
-  version                    = "0.1.1" # change this to your required version
+  version                    = "..." # Change this to your desired version <https://developer.hashicorp.com/terraform/language/expressions/version-constraints>
   resource_group_resource_id = "/subscriptions/..."
   location                   = "swedencentral"
 
