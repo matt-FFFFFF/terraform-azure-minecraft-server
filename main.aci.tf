@@ -4,10 +4,7 @@ resource "random_id" "container_instance" {
 }
 
 resource "azapi_resource" "azure_container_instance" {
-  type      = "Microsoft.ContainerInstance/containerGroups@2023-05-01"
-  location  = var.location
-  parent_id = var.resource_group_resource_id
-  name      = coalesce(var.container_instance_name, random_id.container_instance.hex)
+  type = "Microsoft.ContainerInstance/containerGroups@2023-05-01"
   body = {
     properties = {
       containers = [
@@ -60,5 +57,8 @@ resource "azapi_resource" "azure_container_instance" {
       ]
     }
   }
+  location               = var.location
+  name                   = coalesce(var.container_instance_name, random_id.container_instance.hex)
+  parent_id              = var.resource_group_resource_id
   response_export_values = ["properties.ipAddress.ip"]
 }
