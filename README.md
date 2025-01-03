@@ -137,6 +137,14 @@ Type: `map(string)`
 
 Default: `{}`
 
+### <a name="input_port"></a> [port](#input\_port)
+
+Description: The port on which to expose the Minecraft server.
+
+Type: `number`
+
+Default: `25565`
+
 ### <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name)
 
 Description: The name of the storage account. Leave as `null` to use the an auto-generated name.
@@ -149,9 +157,9 @@ Default: `null`
 
 The following outputs are exported:
 
-### <a name="output_container_public_ip_address"></a> [container\_public\_ip\_address](#output\_container\_public\_ip\_address)
+### <a name="output_container_public_ip_address_and_port"></a> [container\_public\_ip\_address\_and\_port](#output\_container\_public\_ip\_address\_and\_port)
 
-Description: The public IP address of the Minecraft server container.
+Description: The public IP address and port number of the Minecraft server.
 
 ## Modules
 

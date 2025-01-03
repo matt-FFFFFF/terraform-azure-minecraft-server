@@ -66,3 +66,10 @@ variable "minecraft_server_environment_variables_sensitive" {
   sensitive   = true
   description = "A map of sensitive environment variables to pass to the Minecraft server container. The key is the name of the environment variable, and the value is the value of the environment variable."
 }
+
+variable "port" {
+  type        = number
+  default     = 25565
+  nullable    = false
+  description = "The port on which to expose the Minecraft server."
+}

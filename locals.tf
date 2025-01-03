@@ -4,8 +4,7 @@ locals {
 }
 
 locals {
-  file_share_name     = "minecraftdata"
-  ingress_port_number = 25565
+  file_share_name = "minecraftdata"
 }
 
 locals {

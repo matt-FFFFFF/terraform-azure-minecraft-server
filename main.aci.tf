@@ -18,7 +18,7 @@ resource "azapi_resource" "azure_container_instance" {
             image                = var.container_image
             ports = [
               {
-                port     = local.ingress_port_number
+                port     = var.port
                 protocol = "TCP"
               },
             ],
@@ -40,7 +40,7 @@ resource "azapi_resource" "azure_container_instance" {
       ipAddress = {
         ports = [
           {
-            port     = local.ingress_port_number
+            port     = var.port
             protocol = "TCP"
           },
         ]
