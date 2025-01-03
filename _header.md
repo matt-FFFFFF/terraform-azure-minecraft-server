@@ -2,13 +2,16 @@
 
 This is a Terraform module to deploy a Minecraft server on Azure.
 
-Features:
+## Features
 
 - Azure Files for persistent storage
 - Azure Container Instances for the server itself
 - Uses the industry standard [`itzg/minecraft-server`](<https://docker-minecraft-server.readthedocs.io/en/latest/>) container image
 
-It has been designed to be very simple to use.
+## Design Principles
+
+- Simple to use
+- Cost effective
 
 ## Configuration
 
@@ -16,7 +19,8 @@ Most configuration is done via environment variables. See the [server properties
 
 ```hcl
 module "minecraft_server" {
-  source                     = "matt-FFFFFF/terraform-azure-minecraft-server/azure"
+  source                     = "matt-FFFFFF/minecraft-server/azure"
+  version                    = "0.1.1" # change this to your required version
   resource_group_resource_id = "/subscriptions/..."
   location                   = "swedencentral"
 
