@@ -1,9 +1,13 @@
 resource "random_id" "container_instance" {
   byte_length = 6
-  prefix      = "aci"
+  prefix      = "ci"
 }
 
-resource "azapi_resource" "azure_container_instance" {
+resource "random_id" "container_dns_prefix" {
+  byte_length = 4
+}
+
+resource "azapi_resource" "container_instance" {
   type = "Microsoft.ContainerInstance/containerGroups@2023-05-01"
   body = {
     properties = {
@@ -35,6 +39,7 @@ resource "azapi_resource" "azure_container_instance" {
         },
       ]
       ipAddress = {
+        dnsNameLabel = coalesce(var.container_dns_prefix, random_id.container_dns_prefix.hex)
         ports = [
           {
             port     = var.port
@@ -42,6 +47,12 @@ resource "azapi_resource" "azure_container_instance" {
           },
         ]
         type = "Public"
+      }
+      diagnostics = {
+        logAnalytics = {
+          workspaceId  = azapi_resource.log_analytics_workspace.output.properties.customerId
+          workspaceKey = azapi_resource_action.log_analytics_workspace_keys.output.primarySharedKey
+        }
       }
       osType        = "Linux"
       restartPolicy = "Always"
@@ -57,8 +68,15 @@ resource "azapi_resource" "azure_container_instance" {
       ]
     }
   }
-  location               = var.location
-  name                   = coalesce(var.container_instance_name, random_id.container_instance.hex)
-  parent_id              = var.resource_group_resource_id
-  response_export_values = ["properties.ipAddress.ip"]
+  location  = var.location
+  name      = coalesce(var.container_instance_name, random_id.container_instance.hex)
+  parent_id = var.resource_group_resource_id
+  response_export_values = [
+    "properties.ipAddress.ip",
+    "properties.ipAddress.fqdn",
+  ]
+  replace_triggers_refs = [
+    "properties.containers[].properties.resources.requests.memoryInGB",
+    "properties.containers[].properties.resources.requests.cpu",
+  ]
 }

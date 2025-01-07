@@ -41,7 +41,7 @@ module "minecraft_server" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.10)
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.9)
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.2)
 
@@ -51,11 +51,15 @@ The following requirements are needed by this module:
 
 The following resources are used by this module:
 
-- [azapi_resource.azure_container_instance](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource) (resource)
+- [azapi_resource.container_instance](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource) (resource)
 - [azapi_resource.file_share](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource) (resource)
+- [azapi_resource.log_analytics_workspace](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource) (resource)
 - [azapi_resource.storage_account](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource) (resource)
+- [azapi_resource_action.log_analytics_workspace_keys](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource_action) (resource)
 - [azapi_resource_action.storage_account_list_keys](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource_action) (resource)
+- [random_id.container_dns_prefix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) (resource)
 - [random_id.container_instance](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) (resource)
+- [random_id.log_analytics_workspace_name](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) (resource)
 - [random_id.storage_account](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) (resource)
 
 <!-- markdownlint-disable MD013 -->
@@ -78,6 +82,14 @@ Type: `string`
 ## Optional Inputs
 
 The following input variables are optional (have default values):
+
+### <a name="input_container_dns_prefix"></a> [container\_dns\_prefix](#input\_container\_dns\_prefix)
+
+Description: The DNS prefix to use for the container instance. Leave as `null` to use the an auto-generated name.
+
+Type: `string`
+
+Default: `null`
 
 ### <a name="input_container_image"></a> [container\_image](#input\_container\_image)
 
@@ -110,6 +122,14 @@ Description: The amount of memory in GB to request for the Minecraft server cont
 Type: `number`
 
 Default: `5`
+
+### <a name="input_log_analytics_workspace_name"></a> [log\_analytics\_workspace\_name](#input\_log\_analytics\_workspace\_name)
+
+Description: The name of the log analytics workspace. Leave as `null` to use the an auto-generated name.
+
+Type: `string`
+
+Default: `null`
 
 ### <a name="input_minecraft_server_environment_variables"></a> [minecraft\_server\_environment\_variables](#input\_minecraft\_server\_environment\_variables)
 
@@ -156,6 +176,10 @@ Default: `null`
 ## Outputs
 
 The following outputs are exported:
+
+### <a name="output_container_public_fqdn_and_port"></a> [container\_public\_fqdn\_and\_port](#output\_container\_public\_fqdn\_and\_port)
+
+Description: The public FQDN of the Minecraft server.
 
 ### <a name="output_container_public_ip_address_and_port"></a> [container\_public\_ip\_address\_and\_port](#output\_container\_public\_ip\_address\_and\_port)
 

@@ -8,6 +8,10 @@ variable "resource_group_resource_id" {
   type        = string
   description = "The full id of the resource group in which to deploy the resources."
   nullable    = false
+  validation {
+    error_message = "The input value must be a valid resource id for a resource group."
+    condition     = can(regex("^(/subscriptions/[^/]+/resourceGroups/[^/]+)$", var.resource_group_resource_id))
+  }
 }
 
 variable "container_image" {
@@ -71,4 +75,16 @@ variable "storage_account_name" {
   type        = string
   default     = null
   description = "The name of the storage account. Leave as `null` to use the an auto-generated name."
+}
+
+variable "log_analytics_workspace_name" {
+  type        = string
+  default     = null
+  description = "The name of the log analytics workspace. Leave as `null` to use the an auto-generated name."
+}
+
+variable "container_dns_prefix" {
+  type        = string
+  default     = null
+  description = "The DNS prefix to use for the container instance. Leave as `null` to use the an auto-generated name."
 }

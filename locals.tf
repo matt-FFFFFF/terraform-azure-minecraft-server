@@ -25,3 +25,8 @@ locals {
     ]
   )
 }
+
+locals {
+  log_analytics_workspace_primary_key   = sensitive(azapi_resource_action.log_analytics_workspace_keys.output.primarySharedKey)
+  log_analytics_workspace_secondary_key = sensitive(azapi_resource_action.log_analytics_workspace_keys.output.secondarySharedKey)
+}
